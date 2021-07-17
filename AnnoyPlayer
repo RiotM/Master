@@ -1,0 +1,58 @@
+
+--Made by Riot / Falcon / Proxide
+
+--[[
+
+Short documentary:
+  Options:
+    getgenv().plr = 'string' <-- replace the string with the player you would like to annoy
+    getgenv().enabled = bool <-- replace the boolean with true or false, depending on the boolean you set it to, it will be turned on or off.
+  
+  Default:
+    getgenv().plr = nil
+    getgenv().enabled = true
+
+]]--
+
+--Default (enabled):
+
+if getgenv().enabled == nil then
+    getgenv().enabled = true
+end
+
+--Variables:
+
+local vehicleChecker = game.Players.LocalPlayer.Character:FindFirstChild('InVehicle')
+local hrp = game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart')
+
+--Team Checker
+
+if game.Players.LocalPlayer.TeamValue.Value == 'Police' then
+require(game:GetService("ReplicatedStorage").Game.Notification).new({Text = 'You need to be in the other team to annoy a player',Duration = 2})
+else
+
+if hrp ~= nil then
+    hrp:Destroy()
+else
+end
+
+if vehicleChecker ~= nil then
+
+while getgenv().enabled == true do wait()
+    local myVehicle
+    for i, v in pairs(workspace.Vehicles:GetChildren()) do
+        if v:FindFirstChild("Seat") then
+            if v.Seat:FindFirstChild("PlayerName") then
+                if v.Seat.PlayerName.Value == game.Players.LocalPlayer.Name then
+                    myVehicle = v
+                end
+            end
+        end
+    end
+
+    myVehicle:SetPrimaryPartCFrame(workspace[getgenv().plr].Head.CFrame)
+end
+else
+    require(game:GetService("ReplicatedStorage").Game.Notification).new({Text = 'You need to be in a vehicle to annoy a player',Duration = 2})
+end
+end
