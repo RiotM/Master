@@ -1,0 +1,101 @@
+print("IT'S NERF... OR NOTHING!")
+
+
+--[[
+    Made by azyxon / Mikee and Proxide / Riot / Falcon
+    (Mostly by azyxon, I just made it better by equipping it in your inventory :/)
+
+    
+
+    REQUIREMENTS: $2,000 in-game cash.
+
+
+
+    Note to asimo or badcc: what were you guys smoking when you thought it was a great idea to release them 3 weeks early
+    knowing that exploiters can easily write scripts to get them?
+    
+    
+    
+    Documentary:
+    
+      Options:
+       
+        getgenv().BuffToys = bool
+        
+          [true: gives modifications to the toys
+           false: keeps the guns nerfed (hahaha, get it? laugh pls)
+           default: false]
+           
+
+       
+       Other:       
+
+        the guns stay in your gun shop inventory forever, once executed, it will stay there forvever.
+]]--
+
+require(game:GetService('ReplicatedStorage').Game.Notification).new({Text = 'Made by azyxon and Proxide',Duration = 2})
+
+if getgenv().BuffToys == nil then
+    getgenv().BuffToys = false
+end
+
+--Updated as of: 7-19-21
+
+local Hashes = {
+    Equip = 'bb26db1e', 
+    Buy = 'b0f0b518'
+}
+
+--Thanks azyxon
+
+local v = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfRevolver)
+v.ShopHidden = false
+
+local v = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfPistol)
+v.ShopHidden = false
+
+for _,V in pairs(getgc(true)) do
+	if typeof(V) == "table" and rawget(V, "FireServer") and typeof(rawget(V, "FireServer")) == "function" then
+		Remote = V
+	end
+end
+
+Remote:FireServer(Hashes.Buy, "NerfPistol")
+Remote:FireServer(Hashes.Buy, "NerfRevolver")
+
+--This is where I actually do something :-)
+
+Remote:FireServer(Hashes.Equip, "NerfPistol")
+Remote:FireServer(Hashes.Equip, "NerfRevolver")
+
+if getgenv().BuffToys == true then
+  local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfPistol)
+	req["ReloadTime"] = 0
+
+	local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfRevolver)
+	req["ReloadTime"] = 0
+
+  local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfRevolver)
+	req["MagSize"] = math.huge
+
+	local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfPistol)
+	req["MagSize"] = math.huge
+
+  local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfPistol)
+	req["FireFreq"] = 73
+
+	local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfRevolver)
+	req["FireFreq"] = 73
+
+  local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfRevolver)
+	req["CamShakeMagnitude"] = 0
+
+	local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfPistol)
+	req["CamShakeMagnitude"] = 0
+
+  local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfPistol)
+	req["FireAuto"] = true
+
+  local req = require(game:GetService("ReplicatedStorage").Game.ItemConfig.NerfRevolver)
+	req["FireAuto"] = true
+end
